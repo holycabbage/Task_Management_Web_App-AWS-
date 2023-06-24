@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Management App</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #f0f0f0, #6dd5ed, #2193b0);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #main {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .inputField {
+            width: 300px;
+            height: 30px;
+            margin: 10px;
+            padding: 5px;
+            font-size: 18px;
+        }
+        button {
+            width: 200px;
+            height: 40px;
+            margin: 10px;
+            font-size: 18px;
+        }
+        #taskList {
+            width: 50%;
+            margin-top: 30px;
+        }
+        .task {
+            background-color: #fff;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <input type="text" id="taskInput" class="inputField" placeholder="New task">
+        <input type="text" id="descriptionInput" class="inputField" placeholder="Description">
+        <input type="text" id="completionDateInput" class="inputField" placeholder="Completion date (yyyy-mm-dd)">
+        <input type="text" id="statusInput" class="inputField" placeholder="Status">
+        <button onclick="createTask()">Add Task</button>
+        <div id="taskList">
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://zux1hy61w5.execute-api.ap-northeast-2.amazonaws.com/dev"; // replace with API Gateway URL
+
+        // Function to create a new task
+        async function createTask() {
+            const taskInput = document.getElementById('taskInput');
+            const descriptionInput = document.getElementById('descriptionInput');
+            const completionDateInput = document.getElementById('completionDateInput');
+            const statusInput = document.getElementById('statusInput');
+            const data = {
+                ID: taskInput.value,
+                content: descriptionInput.value,
+                creationDate: new Date().toISOString(),
+                completionDate: completionDateInput.value,
+                status: statusInput.value
+            };
+
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify(data);
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch(API_URL, requestOptions)
+                .then(response => response.text())
+                .then(result => {alert(JSON.parse(result).body);})
+                .catch(error => console.log('error', error));
+
+            // const response = await fetch(API_URL, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(data)
+            // });
+
+            // if(response.ok) {
+            //     taskInput.value = '';
+            //     completionDateInput.value = '';
+            //     statusInput.value = '';
+            //     listTasks();
+            // }
+        }
+
+        // // Function to list tasks
+        // async function listTasks() {
+        //     const taskList = document.getElementById('taskList');
+        //     const response = await fetch(API_URL);
+        //     const tasks = await response.json();
+
+        //     taskList.innerHTML = '';
+        //     tasks.forEach(task => {
+        //         const div = document.createElement('div');
+        //         div.className = 'task';
+        //         div.textContent = task.content + " | Completion Date: " + task.completionDate + " | Status: " + task.status;
+        //         taskList.appendChild(div);
+        //     });
+        // }
+
+        // listTasks();
+    </script>
+</body>
+</html>
