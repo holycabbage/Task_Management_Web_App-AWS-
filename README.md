@@ -64,4 +64,4 @@ show "Success!" and task has been saved in database
 
 
 ## Reference
-This project was developed following the guide on [YouTube](https://www.youtube.com/watch?v=7m_q1ldzw0U).
+This project was developed following the guide on [YouTube](https://www.youtube.com/watch?v=7m_q1ldzw0U). (https://www.youtube.com/watch?v=7m_q1ldzw0U)
