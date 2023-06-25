@@ -63,4 +63,5 @@ show "Success!" and task has been saved in database
 <img width="1386" alt="Screen Shot 2023-06-25 at 01 48 50" src="https://github.com/holycabbage/Task_Management_Web_App-AWS-/assets/90731193/607ccf11-8d3d-4b2c-9990-80f07414c314">
 
 
-
+## Reference
+This project was developed following the guide on [YouTube](https://www.youtube.com/watch?v=7m_q1ldzw0U).
